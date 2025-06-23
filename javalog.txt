@@ -1,0 +1,74 @@
+
+The complete system demonstrates a true distributed architecture:
+
+- **Mobile Client** (Android) ↔ **HTTP** ↔ **Web Server** (Servlets) ↔ **RMI** ↔ **Compute Engine** (Business Logic)
+
+
+Each component can run on different machines, showing the distributed nature of the system! 🚀
+//create an android studio project to rep the client
+//set project type to java
+//set minimum java type to android 7 "noughat"
+//create layouts to for the crud actions
+//add global values to the strings xml
+//do the same for colors in colors in xml
+//suffer creating the rmi(add details)
+//struggle compiling cause of 2 different java versions had 21 still set as home and i had updated to 24
+and even after updating i changed the normal path but not the systempath 
+after changing the systempath still found the error therefore I search the rmi registry being used and found it used an older 
+version
+i used this command to access rmiregistry for jdk24 as a temporary work around (java -cp build sun.rmi.registry.RegistryImpl 1099)
+
+# Create web application directory
+mkdir FruitServiceWeb\src\main\java\com\fruitservice\servlets
+mkdir FruitServiceWeb\src\main\webapp\WEB-INF
+mkdir FruitServiceWeb\src\main\webapp\WEB-INF\lib
+
+# Copy model and interface classes (servlets need these)
+xcopy /E /I FruitServiceBackend\src\main\java\com\fruitservice\interfaces FruitServiceWeb\src\main\java\com\fruitservice\
+xcopy /E /I FruitServiceBackend\src\main\java\com\fruitservice\model FruitServiceWeb\src\main\java\com\fruitservice\
+xcopy /E /I FruitServiceBackend\src\main\java\com\fruitservice\tasks FruitServiceWeb\src\main\java\com\fruitservice\
+xcopy /E /I FruitServiceBackend\src\main\java\com\fruitservice\server FruitServiceWeb\src\main\java\com\fruitservice\
+
+//update the CATALINA_HOME environment variable in global system settings variables to point to xampp's tomcat
+
+cd FruitServiceWeb
+
+# Download servlet API JAR (if not already available)
+# You can get it from Maven Central or use the one in Tomcat's lib directory
+copy "%CATALINA_HOME%\lib\servlet-api.jar" FruitServiceWeb\src\main\webapp\WEB-INF\lib\
+        1 file(s) copied.
+
+# Compile the servlets
+javac -d build -cp "src/main/webapp/WEB-INF/lib/servlet-api.jar" @($(Get-ChildItem -Recurse -Filter *.java -Path src/main/java | ForEach-Object { $_.FullName }))
+
+# Create deployment directory
+mkdir FruitServiceWeb\deploy\fruit-service\WEB-INF\classes
+mkdir FruitServiceWeb\deploy\fruit-service\WEB-INF\lib
+
+# Copy compiled classes
+xcopy /E /I FruitServiceWeb\build\com FruitServiceWeb\deploy\fruit-service\WEB-INF\classes\
+
+# Copy web.xml
+xcopy /E /I FruitServiceWeb\src\main\webapp\WEB-INF\web.xml FruitServiceWeb\deploy\fruit-service\WEB-INF\
+
+# Copy HTML files
+xcopy /E /I FruitServiceWeb\src\main\webapp\*.html FruitServiceWeb\deploy\fruit-service\
+
+# Copy the web application to Tomcat
+xcopy /E /I FruitServiceWeb\deploy\fruit-service "%CATALINA_HOME%\webapps\fruit-service\"
+
+#tested the tomcat webclient and got the following response
+Status: 200
+Response: {"result": "Success: Added grape with price $3.25"}
+
+#and when i try to add again this is the response
+Status: 200
+Response: {"result": "Error: Fruit grape already exists in the table."}
+
+#create a new android studio project
+# create the models purchaseitem, apiresponse and fruit price
+# create a package service called fruitapiservice
+# create the layouts for the pages, the result drawable, the (colors and strings) values
+# update the main activity to use the activity main layout
+# create each activity with its corresponding resource layout i.e main activity and mainactivity layout 
+
