@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Service API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            border-radius: 4px;
+        }
+
+        .method {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .url {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .test-form {
+            background: #e8f5e8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #c3e6c3;
+        }
+
+        input,
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #result {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🍎 Fruit Service API</h1>
+        <p>Welcome to the Fruit Service distributed system web interface!</p>
+
+        <h2>Available Endpoints:</h2>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/addFruit</div>
+            <div>Parameters: fruitName, price</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/updateFruit</div>
+            <div>Parameters: fruitName, newPrice</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/deleteFruit</div>
+            <div>Parameters: fruitName</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/calculateCost</div>
+            <div>Parameters: fruitName, quantity</div>
+        </div>
+
+        <div class="endpoint">
+            <div class="method">POST</div>
+            <div class="url">/generateReceipt</div>
+            <div>Parameters: fruitName[], quantity[], amountPaid, cashierName</div>
+        </div>
+
+        <div class="test-form">
+            <h3>🧪 Test Add Fruit</h3>
+            <input type="text" id="fruitName" placeholder="Fruit Name" value="grape">
+            <input type="number" id="price" placeholder="Price" value="3.25" step="0.01">
+            <button onclick="testAddFruit()">Add Fruit</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testAddFruit() {
+            const fruitName = document.getElementById('fruitName').value;
+            const price = document.getElementById('price').value;
+            const resultDiv = document.getElementById('result');
+
+            try {
+                const formData = new FormData();
+                formData.append('fruitName', fruitName);
+                formData.append('price', price);
+                console.log("======formdata======")
+                console.log(formData)
+
+                const response = await fetch('/fruit-service/addFruit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+
+</html>
