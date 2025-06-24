@@ -81,6 +81,19 @@
             white-space: pre-wrap;
             font-family: monospace;
         }
+
+        #updateresult,
+        #deleteresult,
+        #calresult,
+        #receiptresult {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
     </style>
 </head>
 
@@ -128,6 +141,47 @@
             <button onclick="testAddFruit()">Add Fruit</button>
             <div id="result"></div>
         </div>
+        <div class="test-form">
+            <h3>🧪 Test Update Fruit</h3>
+            <input type="text" id="fruitName" placeholder="Fruit Name" value="grape">
+            <input type="number" id="newprice" placeholder="Price" value="3.25" step="0.01">
+            <button onclick="testUpdateFruit()">Update Fruit</button>
+            <div id="updateresult"></div>
+        </div>
+
+        <div class="test-form">
+            <h3>🧪 Test Delete Fruit</h3>
+            <input type="text" id="fruitName" placeholder="Fruit Name" value="grape">
+
+            <button onclick="testDeleteFruit()">Delete Fruit</button>
+            <div id="deleteresult"></div>
+        </div>
+
+        <div class="test-form">
+            <h3>🧪 Test Calculate Fruit Cost</h3>
+            <input type="text" id="fruitName" placeholder="Fruit Name" value="grape">
+            <input type="number" id="quantity" placeholder="Quantity" value="3" step="0">
+
+            <button onclick="testCalculateFruit()">calculate Fruit Cost</button>
+            <div id="calresult"></div>
+        </div>
+        <div class="test-form">
+            <h3>🧪 Test Get Fruit Receipt</h3>
+            <input type="text" id="fruitName1" placeholder="Fruit Name" value="grape">
+            <input type="number" id="quantity1" placeholder="Quantity" value="3" step="0">
+            <br>
+            <input type="text" id="fruitName2" placeholder="Fruit Name" value="grape">
+            <input type="number" id="quantity2" placeholder="Quantity" value="3" step="0">
+            <br>
+            <input type="text" id="fruitName3" placeholder="Fruit Name" value="grape">
+            <input type="number" id="quantity3" placeholder="Quantity" value="3" step="0">
+            <br>
+            <input type="number" id="amountPaid" placeholder="Amount Paid" value="">
+            <input type="text" id="cashierName" placeholder="Cashier Name" value="">
+
+            <button onclick="testFruitReceipt()">Get Fruit Receipt</button>
+            <div id="receiptresult"></div>
+        </div>
     </div>
 
     <script>
@@ -156,6 +210,131 @@
                 resultDiv.textContent = `Error: ${error.message}`;
             }
         }
+
+        async function testUpdateFruit() {
+            const fruitName = document.getElementById('fruitName').value;
+            const price = document.getElementById('newprice').value;
+            const resultDiv = document.getElementById('updateresult');
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('fruitName', fruitName);
+                formData.append('newPrice', price);
+
+                const response = await fetch('/fruit-service/updateFruit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testDeleteFruit() {
+            const fruitName = document.getElementById('fruitName').value;
+
+            const resultDiv = document.getElementById('deleteresult');
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('fruitName', fruitName);
+
+                const response = await fetch('/fruit-service/deleteFruit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testCalculateFruit() {
+            const fruitName = document.getElementById('fruitName').value;
+            const quantity = document.getElementById('quantity').value;
+            const resultDiv = document.getElementById('calresult');
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('fruitName', fruitName);
+                formData.append('quantity', quantity);
+
+                const response = await fetch('/fruit-service/calculateCost', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function testFruitReceipt() {
+            //fruit values
+            const fruitName1 = document.getElementById('fruitName1').value;
+            const fruitName2 = document.getElementById('fruitName2').value;
+            const fruitName3 = document.getElementById('fruitName3').value;
+
+            //quantity values
+            const quantity1 = document.getElementById('quantity1').value;
+            const quantity2 = document.getElementById('quantity2').value;
+            const quantity3 = document.getElementById('quantity3').value;
+
+            //push fruits to array
+            const fruitArray = []
+            fruitArray.push(fruitName1, fruitName2, fruitName3)
+
+            //push quantities to array
+            const quantityArray = []
+            quantityArray.push(quantity1, quantity2, quantity3)
+
+            const amountPaid = document.getElementById('amountPaid').value;
+            const cashierName = document.getElementById('cashierName').value;
+            const resultDiv = document.getElementById('receiptresult');
+
+
+            try {
+                const formData = new URLSearchParams();
+                fruitArray.forEach(fruit => formData.append('fruitName', fruit));
+                quantityArray.forEach(qty => formData.append('quantity', qty));
+                formData.append('amountPaid', amountPaid);
+                formData.append('cashierName', cashierName);
+
+                const response = await fetch('/fruit-service/generateReceipt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                });
+
+                const result = await response.text();
+                resultDiv.textContent = `Status: ${response.status}\nResponse: ${result}`;
+
+            } catch (error) {
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+
     </script>
 </body>
 
