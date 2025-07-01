@@ -5,16 +5,11 @@
 **Group Members**: [Onyango Bruce - 121063]  
 **Submission Date**: [01/07/25](dd/mm/yy)
 
----
-
 ## Executive Summary
 
-This report presents the implementation of a distributed fruit service management system using Java RMI (Remote Method Invocation). The system demonstrates key distributed computing concepts through a 3-tier architecture comprising an Android mobile client, Java servlet web layer, and RMI-based business logic server.
-
----
+This report presents the implementation of a distributed fruit service management system using Java RMI.
 
 ## System Architecture
-
 ### Overview
 The system implements a distributed 3-tier architecture:
 
@@ -27,22 +22,19 @@ The system implements a distributed 3-tier architecture:
 ```
 
 ### Component Details
-
 #### 1. Client Tier (Android Application)
-- **Technology**: Android SDK, Java
-- **Communication**: HTTP/JSON with servlet layer
+- **Technology**: Android Noughart 7 as a minumum
+- **Communication**: HTTP/JSON
 - **Features**: 
-  - User interface for fruit management operations
-  - Asynchronous network communication
-  - Error handling and user feedback
+  - User interface for Fruit management operations
+  - Asynchronous communication
+  - Error handling
 
-#### 2. Web Tier (Java Servlets)
-- **Technology**: Java Servlets, Apache Tomcat
-- **Communication**: HTTP with clients, RMI with business tier
+#### 2. Web Tier (Java servlets)
+- **Technology**: Java Servlets, apache tomcat
+- **Communication**: HTTP and rmi 
 - **Features**:
-  - HTTP request/response handling
-  - JSON data formatting
-  - RMI client functionality
+  - RMI client workings
 
 #### 3. Business Tier (RMI Server)
 - **Technology**: Java RMI
@@ -51,21 +43,16 @@ The system implements a distributed 3-tier architecture:
   - Remote method invocation
   - Business logic execution
 
----
-
 ## Implementation Details
 
-### Core Components
-
-#### 1. RMI Interface Design
+#### 1. RMI Interface
 ```java
 public interface Compute extends Remote {
     <T> T executeTask(Task<T> t) throws RemoteException;
 }
 ```
-- **Purpose**: Defines remote methods available to clients
-- **Design Pattern**: Command pattern using Task objects
-- **Benefits**: Flexible, extensible operation support
+- **Purpose**: makes remote methods available to clients
+- **Benefits**: Flexible, extensible, polymorphic
 
 #### 2. Task Implementation
 ```java
@@ -75,7 +62,7 @@ public interface Task<T> extends Serializable {
 ```
 - **Purpose**: Encapsulates business operations for remote execution
 - **Implementations**: AddFruitPrice, UpdateFruitPrice, DeleteFruitPrice, CalFruitCost, CalculateCost
-- **Serialization**: Enables network transmission of operation objects
+- **Serialization**: Enables Network transmission of operation objects
 
 #### 3. Data Model
 ```java
@@ -86,10 +73,9 @@ public class FruitPrice implements Serializable {
 }
 ```
 - **Purpose**: Represents fruit data in the system
-- **Serialization**: Supports RMI parameter passing
+- **Serialization**: Support RMI parameter passing
 
 ### Network Communication
-
 #### RMI Server Setup
 ```java
 // Server binding
@@ -104,31 +90,23 @@ Registry registry = LocateRegistry.getRegistry(serverHost, 1099);
 Compute comp = (Compute) registry.lookup("FruitComputeEngine");
 ```
 
----
 
-## Distributed System Features Demonstrated
+## Distributed system features
 
-### 1. Location Transparency
+### 1. Transparency
 - Clients invoke methods on remote objects as if they were local
-- Network details abstracted from business logic
-- Server location configurable at runtime
 
 ### 2. Network Communication
 - **RMI Layer**: Java object serialization over TCP
-- **HTTP Layer**: JSON over HTTP for web communication
+- **HTTP Layer**: JSON over HTTP for Web communication
 - **Cross-Platform**: Android client communicating with Java server
-
----
-
 
 ### Test Scenarios Executed (blackbox)
 
 #### 1. Single Computer Testing
 - ✅ All components running on localhost
 - ✅ End-to-end functionality verification
-- ✅ Data persistence validation
-
-
+- ✅ Data persistence after creation.
 
 ### Test Results
 All test scenarios passed successfully, demonstrating:
@@ -136,22 +114,18 @@ All test scenarios passed successfully, demonstrating:
 - Proper distributed system behavior
 - Robust error handling
 
----
-
 ## Key Learning Outcomes
 
 ### Technical Skills Developed
 1. **RMI Implementation**: Understanding of Java RMI architecture and implementation
-2. **Distributed Architecture**: Design and implementation of multi-tier systems
+2. **Distributed Architecture**: Design and implementation of multi-tier Systems.
 3. **Integration**: Combining different technologies (Android, Servlets, RMI)
 
 ### Distributed Systems Concepts Applied
-1. **Remote Procedure Calls**: RMI as implementation of RPC paradigm
+1. **Remote Procedure Calls**: RMI as implementation of Remote procedure call paradigm
 2. **Serialization**: Object marshaling/unmarshaling for network transmission
 3. **Naming Services**: RMI registry for service discovery
 4. **Transparency**: Location and access transparency in distributed calls
-
----
 
 ## Challenges Identified from this implementation
 
@@ -164,12 +138,10 @@ All test scenarios passed successfully, demonstrating:
 ### Challenge 3: Lack of Load Distribution
 **Problem**: In this implementation there is no distribution of the load to simulate high traffic distributed environments.
 
----
-
 ## System Capabilities
 
 ### Functional Requirements Met
-- ✅ Add new fruits with prices
+- ✅ Add new fruits with prices.
 - ✅ Update existing fruit prices
 - ✅ Delete fruits from inventory
 - ✅ Calculate costs for fruit purchases
@@ -180,9 +152,6 @@ All test scenarios passed successfully, demonstrating:
 - ✅ **Reliable**: Proper error handling and recovery
 - ✅ **Scalable**: Architecture supports additional servers
 - ✅ **Maintainable**: Well-documented, modular code
-
----
-
 
 ## Conclusion
 
@@ -198,9 +167,7 @@ The implementation showcases key distributed systems concepts including location
 - Authentication and authorization
 - Load balancing and fault tolerance
 - Performance monitoring and logging
-- Web-based administration interface
-
----
+- Web based administration interface
 
 **Group Members**: [Bruce Onyango]  
 **Student IDs**: [121063]  
