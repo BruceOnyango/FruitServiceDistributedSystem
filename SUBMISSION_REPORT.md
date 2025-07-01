@@ -1,17 +1,16 @@
-# Fruit Service RMI Application - Submission Report
-**Course**: MIT8102 Advanced Distributed Systems  
-**Assignment**: #1 - Distributed Computing with RMI  
-**Institution**: Strathmore University, School of Computing and Engineering Sciences  
-**Group Members**: [Onyango Bruce - 121063]  
-**Submission Date**: [01/07/25](dd/mm/yy)
+# Submission Report for Fruit Service RMI Application 
+**Student IDs**: [121063] 
+**Course**: MIT8102 Advanced Distributed Systems 
+**Institution**: Strathmore University 
+**Group Members**: [Bruce Onyango] (dd/mm/yy)
+**Date of Submission**: [01/07/25] (dd/mm/yy)
 
-## Executive Summary
+## Executive Synopsis
 
-This report presents the implementation of a distributed fruit service management system using Java RMI.
+This study describes how Java RMI was used to construct a distributed fruit service management system.
 
-## System Architecture
-### Overview
-The system implements a distributed 3-tier architecture:
+## Overview of the System Architecture
+A distributed three-tier architecture is used by the system:
 
 ```bash
 ┌─────────────────┐    HTTP/JSON    ┌─────────────────┐    RMI/Java     ┌─────────────────┐
@@ -20,51 +19,51 @@ The system implements a distributed 3-tier architecture:
 │                 │ ←────────────── │                 │ ←────────────── │                 │
 └─────────────────┘    JSON/HTTP    └─────────────────┘   Java Objects  └─────────────────┘
 ```
+### Component Specifics 
+#### 1. Client Tier (Android App) - 
+**Technology**: at least Android Noughart 7 - 
+**Communication**: HTTP/JSON
+**Features**: 
+ - Fruit management operations user interface
+ - Asynchronous communication
+ - Handling errors
 
-### Component Details
-#### 1. Client Tier (Android Application)
-- **Technology**: Android Noughart 7 as a minumum
-- **Communication**: HTTP/JSON
-- **Features**: 
-  - User interface for Fruit management operations
-  - Asynchronous communication
-  - Error handling
+#### 2. Java servlets at the Web Tier
+**Technology**: Apache Tomcat, Java Servlets
+**Communication**: RMI and HTTP
+**Features**: 
+ - The operations of RMI clients
 
-#### 2. Web Tier (Java servlets)
-- **Technology**: Java Servlets, apache tomcat
-- **Communication**: HTTP and rmi 
-- **Features**:
-  - RMI client workings
+#### 3. RMI Server, or Business Tier
 
-#### 3. Business Tier (RMI Server)
-- **Technology**: Java RMI
-- **Communication**: RMI with web tier
-- **Features**:
-  - Remote method invocation
-  - Business logic execution
+**Technology**: Java RMI 
+**Communication**: RMI with web tier
+**Features**:
+ - Invocation of remote methods
+ - Execution of business logic
 
-## Implementation Details
+## Specifics of Implementation
 
-#### 1. RMI Interface
+#### 1. Interface for RMI
 ```java
 public interface Compute extends Remote {
     <T> T executeTask(Task<T> t) throws RemoteException;
 }
-```
-- **Purpose**: makes remote methods available to clients
-- **Benefits**: Flexible, extensible, polymorphic
+``` 
+**Goal**: provides customers with remote methods 
+**Advantages**:  Adaptable, scalable, and polymorphic
 
-#### 2. Task Implementation
+#### 2. Execution of the Task
 ```java
 public interface Task<T> extends Serializable {
     T execute();
 }
-```
-- **Purpose**: Encapsulates business operations for remote execution
-- **Implementations**: AddFruitPrice, UpdateFruitPrice, DeleteFruitPrice, CalFruitCost, CalculateCost
-- **Serialization**: Enables Network transmission of operation objects
+``` 
+**Goal**:  Business operations are encapsulated for remote execution.
+**Achievements**:  CalFruitCost, CalculateCost, AddFruitPrice, UpdateFruitPrice, DeleteFruitPrice
+**Serialization**:  permits operation items to be transmitted across a network.
 
-#### 3. Data Model
+#### 3. Data Model 
 ```java
 public class FruitPrice implements Serializable {
     private String fruitName;
@@ -72,105 +71,97 @@ public class FruitPrice implements Serializable {
     // ... methods
 }
 ```
-- **Purpose**: Represents fruit data in the system
-- **Serialization**: Support RMI parameter passing
+**Goal**:  represents the system's fruit data. 
+**Serialization**:  Encourage the passing of RMI parameters
 
-### Network Communication
-#### RMI Server Setup
+### Network Communication 
+### RMI Server Setup
 ```java
 // Server binding
 Registry registry = LocateRegistry.createRegistry(1099);
 registry.bind("FruitComputeEngine", engine);
 ```
 
-#### RMI Client Connection
+#### Client Connection for RMI 
 ```java
 // Client lookup
 Registry registry = LocateRegistry.getRegistry(serverHost, 1099);
 Compute comp = (Compute) registry.lookup("FruitComputeEngine");
 ```
 
+## Features of distributed systems
 
-## Distributed system features
+### 1. Transparency: 
+ - Clients use remote objects' methods just like they would local ones.
 
-### 1. Transparency
-- Clients invoke methods on remote objects as if they were local
+### 2. Network Communication: 
+ - **HTTP Layer**: JSON over HTTP for Web communication; 
+ - **RMI Layer**: Java object serialization over TCP; 
+ - **Cross-Platform**: Java server and Android client communication
 
-### 2. Network Communication
-- **RMI Layer**: Java object serialization over TCP
-- **HTTP Layer**: JSON over HTTP for Web communication
-- **Cross-Platform**: Android client communicating with Java server
+### Blackbox Test Scenarios
 
-### Test Scenarios Executed (blackbox)
+#### 1. Single Computer Testing 
+ - ✅ Every component operating on localhost 
+ - ✅ Verification of end-to-end functionality 
+ - ✅ Data persistence following creation.
 
-#### 1. Single Computer Testing
-- ✅ All components running on localhost
-- ✅ End-to-end functionality verification
-- ✅ Data persistence after creation.
+### Test Outcomes
+Every test scenario passed, proving: 
+ - Robust error handling 
+ - Proper distributed system behavior 
+ - Reliable RMI communication
 
-### Test Results
-All test scenarios passed successfully, demonstrating:
-- Reliable RMI communication
-- Proper distributed system behavior
-- Robust error handling
+## Important Learning Outcomes
 
-## Key Learning Outcomes
+### Development of Technical Skills
+ 1. **RMI Implementation**: Knowledge of Java RMI implementation and architecture
+ 2. **Distributed Architecture**: Multi-tier system design and implementation.
+ 3. **Integration**: Blending several technologies (Servlets, RMI, and Android)
 
-### Technical Skills Developed
-1. **RMI Implementation**: Understanding of Java RMI architecture and implementation
-2. **Distributed Architecture**: Design and implementation of multi-tier Systems.
-3. **Integration**: Combining different technologies (Android, Servlets, RMI)
+### Applied Distributed Systems Concepts
+ 1) **Remote Procedure Calls**: RMI as a Remote Procedure Call paradigm implementation
+ 2. **Serialization**: Network transmission through object marshalling and unmarshalling
+ The RMI registry for service discovery is the third service to be named. The location and access transparency of dispersed calls is the fourth service.
 
-### Distributed Systems Concepts Applied
-1. **Remote Procedure Calls**: RMI as implementation of Remote procedure call paradigm
-2. **Serialization**: Object marshaling/unmarshaling for network transmission
-3. **Naming Services**: RMI registry for service discovery
-4. **Transparency**: Location and access transparency in distributed calls
+## Issues Found with This Implementation
 
-## Challenges Identified from this implementation
+ Issue 1: Transferring files from the Fruitservice backend to the Tomcat Webapps subdirectory **Difficulty**:  The requirement to perform two recompiles whenever the backend is modified
 
-### Challenge 1: Copying of files i.e from fruitservice backend to tomcat webapps folder
-**Problem**: The need to recompile twice each time there is changes to the backend
+### Problem 2: Insufficient tolerance for errors
+ **Problem**: There is no implementation to account for error in this implementation.
 
-### Challenge 2: Lack of fault tolerance
-**Problem**: In this implementation there is no implementation to cater for fault.
+### Challenge 3: Absence of Load Distribution 
+**Issue**: This method does not disperse the load to replicate distributed situations with large traffic.
 
-### Challenge 3: Lack of Load Distribution
-**Problem**: In this implementation there is no distribution of the load to simulate high traffic distributed environments.
+## Capabilities of the System
 
-## System Capabilities
+### Fulfilled Functional Requirements
+ - ✅ Add new fruits and their costs.
+ - ✅ Update current fruit prices 
+ - ✅ Remove fruits from stock 
+ - ✅ Determine fruit purchase expenses 
+ - ✅ Create receipts
 
-### Functional Requirements Met
-- ✅ Add new fruits with prices.
-- ✅ Update existing fruit prices
-- ✅ Delete fruits from inventory
-- ✅ Calculate costs for fruit purchases
-- ✅ Generate detailed receipts
-
-### Non-Functional Requirements Met
-- ✅ **Distributed**: Components run on different computers
-- ✅ **Reliable**: Proper error handling and recovery
-- ✅ **Scalable**: Architecture supports additional servers
-- ✅ **Maintainable**: Well-documented, modular code
+### Non-functional requirements were satisfied: 
+ - ✅ **Distributed**: Components operate on several computers; 
+ - ✅ **Reliable**: Error management and recovery are done correctly; 
+ - ✅ **Scalable**: The architecture can accommodate more servers; 
+ - ✅ **Maintainable**:  Code that is modular and well documented
 
 ## Conclusion
 
-This project successfully demonstrates the implementation of a distributed system using Java RMI. The system achieves the core assignment objectives:
+This project effectively illustrates how to use Java RMI to construct a distributed system.  The system accomplishes the main goals of the assignment:
 
-1. **Distributed Computing**: Components running on different computers
-2. **RMI Implementation**: Proper use of Java RMI for remote method invocation
+ 1. **Distributed Computing**: distributed components communicating
+ 2. **RMI Implementation**: Using Java RMI correctly to invoke remote methods
 
-The implementation showcases key distributed systems concepts including location transparency, remote procedure calls and serialization. The successful network testing validates the distributed nature of the system and demonstrates practical understanding of distributed computing principles.
+The implementation demonstrates important distributed systems ideas such as serialization, remote procedure calls, and location transparency.  The system's distributed nature is confirmed by the successful testing, which also shows a practical grasp of distributed computing concepts.
 
-### Future Enhancements
-- Database persistence layer
-- Authentication and authorization
-- Load balancing and fault tolerance
-- Performance monitoring and logging
-- Web based administration interface
+### Upcoming Improvements
+ - Database persistence layer
+ - permission and authentication
+ - fault tolerance and load balancing
+ - logging and performance monitoring
+ - web-based administrative interface
 
-**Group Members**: [Bruce Onyango]  
-**Student IDs**: [121063]  
-**Course**: MIT8102 Advanced Distributed Systems  
-**Institution**: Strathmore University  
-**Date**: [01/07/25](dd/mm/yy)
