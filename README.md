@@ -94,7 +94,8 @@ A distributed fruit service management system demonstrating Java RMI concepts th
   ```
 
 ### Running on web client
-    ```bash
+
+  ```bash
     1. Ensure the rmi registry is up and the backend has connected to it
     2. Create a fruit-service folder in tomcat's web apps folder
     3. Inside the fruit-service folder create a classes folder and web.xml file
@@ -105,7 +106,7 @@ A distributed fruit service management system demonstrating Java RMI concepts th
     8. This will take you to localhost browser on port 8080
     9. Navigate to this url http://localhost:8080/fruit-service/ (Hint: remember the folder we created in web apps)
     10. Use the web client to send requests 
-    ```
+  ```
 
 ### **Run Android Client**:
    - Open the android project in Android Studio
@@ -147,7 +148,7 @@ This repository contains all required components for MIT8102 Assignment:
 ## 📸 Screenshots
 
 ### 1. RMI Server Startup
-![RMI Server Startup](screenshots/Screenshot (97).png)
+![RMI Server Startup](screenshots/Screenshot(97).png)
 *RMI server successfully bound and ready for connections*
 
 ### 2. Network Test Client
