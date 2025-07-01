@@ -18,13 +18,13 @@ This report presents the implementation of a distributed fruit service managemen
 ### Overview
 The system implements a distributed 3-tier architecture:
 
-\`\`\`
+```bash
 ┌─────────────────┐    HTTP/JSON    ┌─────────────────┐    RMI/Java     ┌─────────────────┐
 │   Android App   │ ──────────────→ │  Servlet Layer  │ ──────────────→ │  RMI Server     │
-│  (Client Tier)  │                 │(Web Tier/backend)                 │ (Business Tier) │
+│  (Client Tier)  │                 │(Web Tier)       |                 │ (Business Tier) │
 │                 │ ←────────────── │                 │ ←────────────── │                 │
 └─────────────────┘    JSON/HTTP    └─────────────────┘   Java Objects  └─────────────────┘
-\`\`\`
+```
 
 ### Component Details
 
@@ -58,51 +58,51 @@ The system implements a distributed 3-tier architecture:
 ### Core Components
 
 #### 1. RMI Interface Design
-\`\`\`java
+```java
 public interface Compute extends Remote {
     <T> T executeTask(Task<T> t) throws RemoteException;
 }
-\`\`\`
+```
 - **Purpose**: Defines remote methods available to clients
 - **Design Pattern**: Command pattern using Task objects
 - **Benefits**: Flexible, extensible operation support
 
 #### 2. Task Implementation
-\`\`\`java
+```java
 public interface Task<T> extends Serializable {
     T execute();
 }
-\`\`\`
+```
 - **Purpose**: Encapsulates business operations for remote execution
 - **Implementations**: AddFruitPrice, UpdateFruitPrice, DeleteFruitPrice, CalFruitCost, CalculateCost
 - **Serialization**: Enables network transmission of operation objects
 
 #### 3. Data Model
-\`\`\`java
+```java
 public class FruitPrice implements Serializable {
     private String fruitName;
     private double price;
     // ... methods
 }
-\`\`\`
+```
 - **Purpose**: Represents fruit data in the system
 - **Serialization**: Supports RMI parameter passing
 
 ### Network Communication
 
 #### RMI Server Setup
-\`\`\`java
+```java
 // Server binding
 Registry registry = LocateRegistry.createRegistry(1099);
 registry.bind("FruitComputeEngine", engine);
-\`\`\`
+```
 
 #### RMI Client Connection
-\`\`\`java
+```java
 // Client lookup
 Registry registry = LocateRegistry.getRegistry(serverHost, 1099);
 Compute comp = (Compute) registry.lookup("FruitComputeEngine");
-\`\`\`
+```
 
 ---
 
