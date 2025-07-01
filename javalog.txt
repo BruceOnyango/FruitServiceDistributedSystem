@@ -1,10 +1,6 @@
 
-The complete system demonstrates a true distributed architecture:
+This document shows the thought process and commands used through each step of development
 
-- **Mobile Client** (Android) ↔ **HTTP** ↔ **Web Server** (Servlets) ↔ **RMI** ↔ **Compute Engine** (Business Logic)
-
-
-Each component can run on different machines, showing the distributed nature of the system! 🚀
 //create an android studio project to rep the client
 //set project type to java
 //set minimum java type to android 7 "noughat"
