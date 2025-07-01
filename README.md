@@ -148,8 +148,8 @@ This repository contains all required components for MIT8102 Assignment:
 ## 📸 Screenshots
 
 ### 1. RMI Server Startup
-![RMI Server Startup](screenshots/Screenshot(97).png)
-*RMI server successfully bound and ready for connections*
+![RMI Registry Startup](screenshots/Screenshot(97).png)
+*RMI registry successfully started and ready for bounding*
 
 ### 2. Network Test Client
 ![Test Client](screenshots/network-test-client-1.png)
