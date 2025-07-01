@@ -147,7 +147,7 @@ This repository contains all required components for MIT8102 Assignment:
 
 ## 📸 Screenshots
 
-### 1. RMI Server Startup
+### 1. RMI Registry Startup
 ![RMI Registry Startup](screenshots/Screenshot(97).png)
 *RMI registry successfully started and ready for bounding*
 
