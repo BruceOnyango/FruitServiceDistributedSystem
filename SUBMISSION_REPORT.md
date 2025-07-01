@@ -1,9 +1,9 @@
 # Submission Report for Fruit Service RMI Application 
-**Student IDs**: [121063] 
-**Course**: MIT8102 Advanced Distributed Systems 
-**Institution**: Strathmore University 
-**Group Members**: [Bruce Onyango] (dd/mm/yy)
-**Date of Submission**: [01/07/25] (dd/mm/yy)
+ - **Student IDs**: [121063] 
+ - **Course**: MIT8102 Advanced Distributed Systems 
+ - **Institution**: Strathmore University 
+ - **Group Members**: [Bruce Onyango] (dd/mm/yy)
+ - **Date of Submission**: [01/07/25] (dd/mm/yy)
 
 ## Executive Synopsis
 
