@@ -21,10 +21,10 @@ A distributed fruit service management system demonstrating Java RMI concepts th
 ### Running the System 
 
 1. **Start RMI Server/Registry**:
-   \`\`\`bash
+   ```bash
    cd FruitServiceBackend
    java -cp build sun.rmi.registry.RegistryImpl 1099
-   \`\`\`
+   ```
 
 2. **Connect to the RMI Server/Registry**:
    \`\`\`bash
@@ -33,15 +33,15 @@ A distributed fruit service management system demonstrating Java RMI concepts th
    \`\`\`
 
 3. **Running a local client test to see the operations**:
-   \`\`\`bash
+   ```bash
    cd FruitServiceBackend
    java -cp build com.fruitservice.client.TestClient
 
   
-   \`\`\`
+   ```
 
 4. **Expected results from running the previous command**:
-  \`\`\`bash
+  ```bash
      === Fruit Service Engine Test Client ===
 
     1. Adding new fruit (mango):
@@ -91,10 +91,10 @@ A distributed fruit service management system demonstrating Java RMI concepts th
     Success: Deleted mango (was $4.5)
 
     === All tests completed ===
-  \`\`\`
+  ```
 
 ### Running on web client
-    \`\`\`bash
+    ```bash
     1. Ensure the rmi registry is up and the backend has connected to it
     2. Create a fruit-service folder in tomcat's web apps folder
     3. Inside the fruit-service folder create a classes folder and web.xml file
@@ -105,7 +105,7 @@ A distributed fruit service management system demonstrating Java RMI concepts th
     8. This will take you to localhost browser on port 8080
     9. Navigate to this url http://localhost:8080/fruit-service/ (Hint: remember the folder we created in web apps)
     10. Use the web client to send requests 
-    \`\`\`
+    ```
 
 ### **Run Android Client**:
    - Open the android project in Android Studio
@@ -116,9 +116,9 @@ A distributed fruit service management system demonstrating Java RMI concepts th
 
 ## System Architecture for android client
 
-\`\`\`
+```bash
 Android App → HTTP/JSON → Servlets → RMI → Business Server
-\`\`\`
+```
 
 ## Features
 
